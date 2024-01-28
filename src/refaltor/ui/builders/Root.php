@@ -9,9 +9,15 @@ class Root implements \JsonSerializable
     private array $root = [];
     public array $elements = [];
     public string $namespace;
+    private string $title = "";
 
     public function __construct(string $namespace) {
         $this->setNamespace($namespace);
+    }
+
+    public function setTitleCondition(string $title): self {
+        $this->title = $title;
+        return $this;
     }
 
     public static function create(string $namespace = ""): self {
@@ -61,9 +67,6 @@ class Root implements \JsonSerializable
     public function generateAndSaveJson(string $filename): void {
         $json = json_encode($this, JSON_PRETTY_PRINT);
         $filePath =  $filename;
-        var_dump($filePath);
         file_put_contents($filePath, $json);
-
-        echo "Le fichier JSON a été enregistré sous : " . $filePath;
     }
 }
